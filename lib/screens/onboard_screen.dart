@@ -45,10 +45,8 @@ class OnBoradScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: ElevatedButton(
                 onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen()))
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()))
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(55),
