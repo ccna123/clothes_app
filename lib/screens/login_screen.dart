@@ -4,8 +4,6 @@ import 'package:clothes_app/screens/signup_screen.dart';
 import 'package:clothes_app/shared/form_field.dart';
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 

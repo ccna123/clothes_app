@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
+import 'package:clothes_app/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -123,7 +124,7 @@ class HomeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemCount: images.length,
                     itemBuilder: (context, index) {
-                      return itemCard(index);
+                      return itemCard(index, context);
                     }),
               ),
               SizedBox(
@@ -135,6 +136,23 @@ class HomeScreen extends StatelessWidget {
                   "Latest Products",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                height: 200,
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, childAspectRatio: 0.6),
+                  itemCount: images.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: itemCard(index, context),
+                    );
+                  },
+                ),
               )
             ],
           ),
@@ -143,7 +161,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding itemCard(int index) {
+  Padding itemCard(int index, BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(right: 10, left: 10),
       child: Column(
@@ -163,6 +181,12 @@ class HomeScreen extends StatelessWidget {
                         width: 150,
                         height: 150,
                       )),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProductScreen()));
+                  },
                 ),
                 Positioned(
                   right: 10,
