@@ -1,3 +1,4 @@
+import 'package:clothes_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -43,11 +44,21 @@ class OnBoradScreen extends StatelessWidget {
             footer: Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: ElevatedButton(
-                onPressed: () => {},
+                onPressed: () => {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()))
+                },
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(55),
-                    backgroundColor: const Color(0xFFEF6969)),
-                child: const Text("Let's go shop"),
+                    backgroundColor: const Color(0xFFEF6969),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8))),
+                child: const Text(
+                  "Let's go shop",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             )),
       ],

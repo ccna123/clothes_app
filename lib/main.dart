@@ -1,4 +1,4 @@
-import 'package:clothes_app/screens/splash_screen.dart';
+import 'package:clothes_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: "Clothes Shop",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: const Color(0xFFEF6969)),
-      home: const SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }
