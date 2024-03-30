@@ -1,5 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:car_app/screens/cart_screen.dart';
+import 'package:car_app/shared/navigation.dart';
+import 'package:car_app/widgets/button_modal.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -129,21 +132,11 @@ class _ProductScreenState extends State<ProductScreen> {
                             onTap: () {
                               showBottomModal(context, clrs, quantity);
                             },
-                            child: Container(
-                              height: 50,
-                              width: MediaQuery.of(context).size.width / 1.5,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFEF6969),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                "Buy now",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              )),
+                            child: ButtonModal(
+                              title: "Buy now",
+                              bgColor: Color(0xFFEF6969),
+                              containerWidth:
+                                  MediaQuery.of(context).size.width / 1.5,
                             ),
                           )
                         ],
@@ -242,6 +235,42 @@ class _ProductScreenState extends State<ProductScreen> {
                             ))
                       ],
                     ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Total payment",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Text(
+                          "\$123",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        goToScreen(context, CartScreen());
+                      },
+                      child: ButtonModal(
+                        title: "Check out",
+                        bgColor: Colors.black,
+                        containerWidth: MediaQuery.of(context).size.width / 0.6,
+                      ),
+                    )
                   ],
                 ),
               ),

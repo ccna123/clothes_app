@@ -2,6 +2,7 @@ import 'package:car_app/screens/forgot_screen.dart';
 import 'package:car_app/screens/nagivation_screen.dart';
 import 'package:car_app/screens/signup_screen.dart';
 import 'package:car_app/shared/form_field.dart';
+import 'package:car_app/shared/navigation.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -33,11 +34,7 @@ class LoginScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgotPassScreen()));
+                          goToScreen(context, const ForgotPassScreen());
                         },
                         child: const Text(
                           "Forgot password",
@@ -49,12 +46,8 @@ class LoginScreen extends StatelessWidget {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () => {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NavigationScreen()))
-                    },
+                    onPressed: () =>
+                        {goToScreen(context, const NavigationScreen())},
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
                         backgroundColor: const Color(0xFFEF6969),
@@ -84,11 +77,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SignUpScreen()));
+                            goToScreen(context, const SignUpScreen());
                           },
                           child: const Text(
                             "Sign in",

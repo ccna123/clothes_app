@@ -4,6 +4,8 @@ import 'package:car_app/screens/recovery_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../shared/navigation.dart';
+
 class ForgotPassScreen extends StatefulWidget {
   const ForgotPassScreen({super.key});
 
@@ -81,10 +83,7 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RecoveryScreen()))
-                },
+                onPressed: () => {goToScreen(context, RecoveryScreen())},
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(55),
                     backgroundColor: const Color(0xFFEF6969),

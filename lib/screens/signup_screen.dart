@@ -2,6 +2,7 @@ import 'package:car_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/form_field.dart';
+import '../shared/navigation.dart';
 import 'home_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -48,10 +49,7 @@ class SignUpScreen extends StatelessWidget {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () => {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomeScreen()))
-                    },
+                    onPressed: () => {goToScreen(context, HomeScreen())},
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
                         backgroundColor: const Color(0xFFEF6969),
@@ -81,10 +79,7 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
+                            goToScreen(context, const LoginScreen());
                           },
                           child: const Text(
                             "Log in",

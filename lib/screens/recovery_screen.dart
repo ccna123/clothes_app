@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, unused_element
+import 'package:car_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/form_field.dart';
+import '../shared/navigation.dart';
 
 class RecoveryScreen extends StatefulWidget {
   const RecoveryScreen({super.key});
@@ -42,12 +44,7 @@ class __RecoveryScreenState extends State<RecoveryScreen> {
                 height: 20,
               ),
               ElevatedButton(
-                onPressed: () => {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => const HomeScreen()))
-                },
+                onPressed: () => {goToScreen(context, HomeScreen())},
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(55),
                     backgroundColor: const Color(0xFFEF6969),
