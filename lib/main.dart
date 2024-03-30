@@ -1,3 +1,4 @@
+import 'package:car_app/screens/cart_screen.dart';
 import 'package:car_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: "Clothes Shop",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: const Color(0xFFEF6969)),
-      home: const LoginScreen(),
+      home: const CartScreen(),
     );
   }
 }
