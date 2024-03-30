@@ -1,7 +1,7 @@
-import 'package:clothes_app/screens/forgot_screen.dart';
-import 'package:clothes_app/screens/nagivation_screen.dart';
-import 'package:clothes_app/screens/signup_screen.dart';
-import 'package:clothes_app/shared/form_field.dart';
+import 'package:car_app/screens/forgot_screen.dart';
+import 'package:car_app/screens/nagivation_screen.dart';
+import 'package:car_app/screens/signup_screen.dart';
+import 'package:car_app/shared/form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {

@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:clothes_app/screens/favorite_screen.dart';
-import 'package:clothes_app/screens/home_screen.dart';
-import 'package:clothes_app/screens/profile_screen.dart';
-import 'package:clothes_app/screens/setting_screen.dart';
+import 'package:car_app/screens/favorite_screen.dart';
+import 'package:car_app/screens/home_screen.dart';
+import 'package:car_app/screens/profile_screen.dart';
+import 'package:car_app/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 

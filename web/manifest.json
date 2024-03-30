@@ -1,6 +1,6 @@
 {
-    "name": "clothes_app",
-    "short_name": "clothes_app",
+    "name": "car_app",
+    "short_name": "car_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

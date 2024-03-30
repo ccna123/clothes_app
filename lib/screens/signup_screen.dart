@@ -1,4 +1,4 @@
-import 'package:clothes_app/screens/login_screen.dart';
+import 'package:car_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/form_field.dart';

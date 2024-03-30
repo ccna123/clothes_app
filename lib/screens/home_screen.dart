@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
-import 'package:clothes_app/screens/product_screen.dart';
+import 'package:car_app/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,23 +8,23 @@ class HomeScreen extends StatelessWidget {
 
   List<String> tabs = ["All", "Category", "Top", "Recommended"];
   List images = [
-    "images/image1.jpg",
-    "images/image2.jpg",
-    "images/image3.jpg",
-    "images/image4.jpg",
-    "images/image5.jpg",
-    "images/image6.jpg",
+    "images/car1.jpg",
+    "images/car2.jpg",
+    "images/car3.jpg",
+    "images/car4.jpg",
+    "images/car5.jpg",
+    "images/car6.jpg",
   ];
   List<String> products = [
-    "Shirt",
-    "Skirt",
-    "Hat",
-    "Shoe",
-    "Underwear",
-    "Bikini"
+    "Car1",
+    "Car2",
+    "Car3",
+    "Car4",
+    "Car5",
+    "Car6",
   ];
   List<String> price = ["\$123", "\$1223", "\$23", "\$87", "\$827", "\$187"];
-  List<String> likes = ["555", "1234", "221", "55", "1223", "555"];
+  List<String> likes = ["5255", "1234", "2211", "5465", "8292", "4555"];
 
   @override
   Widget build(BuildContext context) {
@@ -177,9 +177,9 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
                         images[index],
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         width: 150,
-                        height: 150,
+                        height: 250,
                       )),
                   onTap: () {
                     Navigator.push(

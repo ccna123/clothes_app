@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'dart:math';
-
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,13 +15,21 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   Widget build(BuildContext context) {
     List<String> images = [
-      "images/image1.jpg",
-      "images/image2.jpg",
-      "images/image3.jpg",
-      "images/image4.jpg",
-      "images/image5.jpg",
-      "images/image6.jpg",
+      "images/car1.jpg",
+      "images/car2.jpg",
+      "images/car3.jpg",
+      "images/car4.jpg",
+      "images/car5.jpg",
+      "images/car6.jpg",
     ];
+    List<Color> clrs = [
+      Colors.red,
+      Colors.blue,
+      Colors.green,
+      Colors.yellow,
+    ];
+
+    int quantity = 0;
 
     return Scaffold(
       body: SafeArea(
@@ -121,21 +127,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              showModalBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (BuildContext builder) {
-                                    return Container(
-                                      height:
-                                          MediaQuery.of(context).size.height /
-                                              2.5,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(30),
-                                              topRight: Radius.circular(30))),
-                                    );
-                                  });
+                              showBottomModal(context, clrs, quantity);
                             },
                             child: Container(
                               height: 50,
@@ -165,5 +157,96 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
       ),
     );
+  }
+
+  Future<dynamic> showBottomModal(
+      BuildContext context, List clrs, int quantity) {
+    return showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        builder: (BuildContext builder) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return Container(
+              height: MediaQuery.of(context).size.height / 2.5,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "Color",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        for (var i = 0; i < clrs.length; i++) ...[
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                                color: clrs[i],
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(50))),
+                          )
+                        ],
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Total",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              if (quantity > 0) {
+                                setState(() {
+                                  quantity--;
+                                });
+                              }
+                            },
+                            child: Icon(
+                              Icons.remove,
+                              size: 20,
+                              color: Colors.black,
+                            )),
+                        Text(
+                          quantity.toString(),
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              setState(() {
+                                quantity++;
+                              });
+                            },
+                            child: Icon(
+                              Icons.add,
+                              size: 20,
+                              color: Colors.black,
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+        });
   }
 }
