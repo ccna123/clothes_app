@@ -4,9 +4,14 @@ class ButtonModal extends StatelessWidget {
   final Color? bgColor;
   final String title;
   final double? containerWidth;
+  final Color textColor;
 
   const ButtonModal(
-      {super.key, this.bgColor, required this.title, this.containerWidth});
+      {super.key,
+      this.bgColor,
+      required this.title,
+      this.containerWidth,
+      this.textColor = Colors.white});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +25,8 @@ class ButtonModal extends StatelessWidget {
       child: Center(
           child: Text(
         title,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        style: TextStyle(
+            color: textColor, fontSize: 16, fontWeight: FontWeight.bold),
       )),
     );
   }

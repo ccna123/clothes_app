@@ -36,10 +36,11 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           goToScreen(context, const ForgotPassScreen());
                         },
-                        child: const Text(
+                        child: Text(
                           "Forgot password",
-                          style:
-                              TextStyle(fontSize: 16, color: Color(0xFFEF6969)),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).primaryColor),
                         )),
                   ),
                   const SizedBox(
@@ -50,7 +51,7 @@ class LoginScreen extends StatelessWidget {
                         {goToScreen(context, const NavigationScreen())},
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
-                        backgroundColor: const Color(0xFFEF6969),
+                        backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                     child: const Text(
@@ -79,10 +80,11 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             goToScreen(context, const SignUpScreen());
                           },
-                          child: const Text(
+                          child: Text(
                             "Sign in",
                             style: TextStyle(
-                                fontSize: 16, color: Color(0xFFEF6969)),
+                                fontSize: 16,
+                                color: Theme.of(context).primaryColor),
                           ))
                     ],
                   )

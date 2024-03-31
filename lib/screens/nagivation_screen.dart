@@ -32,7 +32,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       floatingActionButton: SafeArea(
         child: FloatingActionButton(
           onPressed: () {},
-          backgroundColor: Color(0xFFEF6969),
+          backgroundColor: Theme.of(context).primaryColor,
           child: Icon(
             Icons.qr_code,
             size: 20,
@@ -40,7 +40,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-        color: const Color(0xFFEF6969),
+        color: Theme.of(context).primaryColor,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: GNav(
@@ -50,9 +50,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
               });
             },
             padding: EdgeInsets.all(15),
-            backgroundColor: Color(0xFFEF6969),
+            backgroundColor: Theme.of(context).primaryColor,
             color: Colors.white,
-            tabBackgroundColor: Color.fromARGB(255, 242, 203, 203),
+            tabBackgroundColor: Colors.white,
             gap: 9,
             tabs: [
               GButton(

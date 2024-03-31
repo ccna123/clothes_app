@@ -52,7 +52,7 @@ class SignUpScreen extends StatelessWidget {
                     onPressed: () => {goToScreen(context, HomeScreen())},
                     style: ElevatedButton.styleFrom(
                         minimumSize: const Size.fromHeight(55),
-                        backgroundColor: const Color(0xFFEF6969),
+                        backgroundColor: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8))),
                     child: const Text(
@@ -81,10 +81,11 @@ class SignUpScreen extends StatelessWidget {
                           onPressed: () {
                             goToScreen(context, const LoginScreen());
                           },
-                          child: const Text(
+                          child: Text(
                             "Log in",
                             style: TextStyle(
-                                fontSize: 16, color: Color(0xFFEF6969)),
+                                fontSize: 16,
+                                color: Theme.of(context).primaryColor),
                           ))
                     ],
                   )

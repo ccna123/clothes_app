@@ -1,30 +1,21 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/screens/cart_screen.dart';
 import 'package:car_app/shared/navigation.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:provider/provider.dart';
 
-class ProductScreen extends StatefulWidget {
+class ProductScreen extends StatelessWidget {
   const ProductScreen({super.key});
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState();
-}
-
-class _ProductScreenState extends State<ProductScreen> {
-  @override
   Widget build(BuildContext context) {
-    List<String> images = [
-      "images/car1.jpg",
-      "images/car2.jpg",
-      "images/car3.jpg",
-      "images/car4.jpg",
-      "images/car5.jpg",
-      "images/car6.jpg",
-    ];
+    final items = context.watch<ItemProvider>().items;
+    List<String> images = items.map((item) => item.image).toList();
     List<Color> clrs = [
       Colors.red,
       Colors.blue,
@@ -55,14 +46,14 @@ class _ProductScreenState extends State<ProductScreen> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
@@ -94,55 +85,54 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ],
                           ),
-                          Text(
-                            "\$300",
-                            style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 10),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "um dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e",
-                          style: TextStyle(color: Colors.grey.withOpacity(0.8)),
                         ),
+                        Text(
+                          "\$300",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "um dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e",
+                        style: TextStyle(color: Colors.grey.withOpacity(0.8)),
                       ),
-                      SizedBox(height: 20),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.3),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(50)),
-                            ),
-                            child: Icon(
-                              Icons.shopping_cart,
-                              color: Color(0xFFEF6969),
-                            ),
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.all(Radius.circular(50)),
                           ),
-                          InkWell(
-                            onTap: () {
-                              showBottomModal(context, clrs, quantity);
-                            },
-                            child: ButtonModal(
-                              title: "Buy now",
-                              bgColor: Color(0xFFEF6969),
-                              containerWidth:
-                                  MediaQuery.of(context).size.width / 1.5,
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                          child: Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            showBottomModal(context, clrs, quantity);
+                          },
+                          child: ButtonModal(
+                            title: "Buy now",
+                            bgColor: Theme.of(context).primaryColor,
+                            containerWidth:
+                                MediaQuery.of(context).size.width / 1.5,
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               )
             ],
@@ -267,7 +257,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       },
                       child: ButtonModal(
                         title: "Check out",
-                        bgColor: Colors.black,
+                        bgColor: Theme.of(context).primaryColor,
                         containerWidth: MediaQuery.of(context).size.width / 0.6,
                       ),
                     )

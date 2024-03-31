@@ -1,9 +1,17 @@
+import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/screens/cart_screen.dart';
+import 'package:car_app/screens/confirm_order_screen.dart';
+import 'package:car_app/screens/home_screen.dart';
+import 'package:car_app/screens/starter_screen.dart';
 import 'package:car_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider<ItemProvider>(
+    child: const MyApp(),
+    create: (_) => ItemProvider(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +23,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Clothes Shop",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: const Color(0xFFEF6969)),
-      home: const CartScreen(),
+      theme: ThemeData(primaryColor: const Color(0xFF2196F3)),
+      home: StarterScreen(),
     );
   }
 }
