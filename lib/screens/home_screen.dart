@@ -136,10 +136,11 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                             items: List<Widget>.generate(
-                                    items.length,
-                                    (index) =>
-                                        ProductImage(image: items[index].image))
-                                .toList()),
+                                items.length,
+                                (index) => ProductImage(
+                                      image: items[index].image,
+                                      id: items[index].id,
+                                    )).toList()),
                         Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: Row(
@@ -177,6 +178,7 @@ class HomeScreen extends StatelessWidget {
                     itemCount: items.length,
                     itemBuilder: (context, index) {
                       return AvailableCarCard(
+                          id: items[index].id,
                           name: items[index].name,
                           imageName: items[index].image,
                           price: items[index].price,

@@ -1,10 +1,13 @@
 import 'package:car_app/helper/color_pair.dart';
+import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/widgets/product_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AvailableCarCard extends StatelessWidget {
   const AvailableCarCard({
     super.key,
+    required this.id,
     required this.name,
     required this.imageName,
     required this.price,
@@ -15,17 +18,25 @@ class AvailableCarCard extends StatelessWidget {
   final String name;
   final int price;
   final String status;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     ColorPair statusColor = getStatusColor(status);
+    final items = context.watch<ItemProvider>().items;
+    var item = items.firstWhere((element) => element.id == id, orElse: () {
+      throw Exception("Not found");
+    });
     return SizedBox(
         child: Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(children: [
-            ProductImage(image: imageName),
+            ProductImage(
+              image: imageName,
+              id: id,
+            ),
             Positioned(
               right: 10,
               bottom: 10,

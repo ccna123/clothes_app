@@ -1,15 +1,26 @@
+import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/screens/product_screen.dart';
 import 'package:car_app/shared/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductImage extends StatelessWidget {
-  const ProductImage({super.key, required this.image});
+  const ProductImage({super.key, required this.image, required this.id});
   final String image;
+  final int id;
   @override
   Widget build(BuildContext context) {
+    final items = context.watch<ItemProvider>().items;
+    var item = items.firstWhere((element) => element.id == id, orElse: () {
+      throw Exception("Not found");
+    });
     return InkWell(
       onTap: () {
-        goToScreen(context, ProductScreen());
+        goToScreen(
+            context,
+            ProductScreen(
+              item: item,
+            ));
       },
       child: Container(
         decoration: const BoxDecoration(

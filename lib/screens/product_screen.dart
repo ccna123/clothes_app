@@ -1,29 +1,23 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:car_app/helper/destination_enum.dart';
+import 'package:car_app/model/item_model.dart';
 import 'package:car_app/provider/item_provider.dart';
-import 'package:car_app/screens/cart_screen.dart';
-import 'package:car_app/shared/navigation.dart';
-import 'package:car_app/widgets/button_modal.dart';
-import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
+import 'package:car_app/widgets/car_spec.dart';
+import 'package:car_app/widgets/slider_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key});
+  const ProductScreen({super.key, required this.item});
+
+  final Item item;
 
   @override
   Widget build(BuildContext context) {
     final items = context.watch<ItemProvider>().items;
-    List<String> images = items.map((item) => item.image).toList();
-    List<Color> clrs = [
-      Colors.red,
-      Colors.blue,
-      Colors.green,
-      Colors.yellow,
-    ];
-
-    int quantity = 0;
+    items.map((item) => item.image).toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -39,16 +33,33 @@ class ProductScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.name,
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "\$${item.price.toString()}",
+                          style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )),
+                Image.asset(item.image),
+                Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,16 +70,35 @@ class ProductScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Shirt",
+                                "Car Specs",
                                 style: TextStyle(
                                     fontSize: 30, fontWeight: FontWeight.bold),
                               ),
+                              SizedBox(height: 20),
+                              Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    CarSpec(
+                                      title: "Fuel info",
+                                      icon: Icon(Icons.local_gas_station),
+                                      specNumber: item.spec['fuel']!,
+                                      unit: "L",
+                                    ),
+                                    CarSpec(
+                                      title: "Top Speed",
+                                      icon: Icon(Icons.speed),
+                                      specNumber: item.spec['speed']!,
+                                      unit: "mph",
+                                    ),
+                                    CarSpec(
+                                      title: "Capacity",
+                                      icon: Icon(Icons.person_3_outlined),
+                                      specNumber: item.spec['capacity']!,
+                                      unit: "seat(s)",
+                                    ),
+                                  ]),
                               SizedBox(height: 10),
-                              Text(
-                                "Lorem ipsum dolor sitcididunt ut",
-                                style: TextStyle(
-                                    color: Colors.grey.withOpacity(0.7)),
-                              ),
                               SizedBox(height: 10),
                               RatingBar.builder(
                                 itemSize: 30,
@@ -88,13 +118,6 @@ class ProductScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Text(
-                          "\$300",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
                       ],
                     ),
                     SizedBox(height: 10),
@@ -106,38 +129,14 @@ class ProductScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          width: 50,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.all(Radius.circular(50)),
-                          ),
-                          child: Icon(
-                            Icons.shopping_cart,
-                            color: Colors.white,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showBottomModal(context, clrs, quantity);
-                          },
-                          child: ButtonModal(
-                            title: "Buy now",
-                            bgColor: Theme.of(context).primaryColor,
-                            containerWidth:
-                                MediaQuery.of(context).size.width / 1.5,
-                          ),
-                        )
-                      ],
+                    SliderButton(
+                      title: "Buy now",
+                      destinationScreen: DestinationScreen.CHECKOUT,
                     )
                   ],
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -253,16 +252,6 @@ class ProductScreen extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    InkWell(
-                      onTap: () {
-                        goToScreen(context, CartScreen());
-                      },
-                      child: ButtonModal(
-                        title: "Check out",
-                        bgColor: Theme.of(context).primaryColor,
-                        containerWidth: MediaQuery.of(context).size.width / 0.6,
-                      ),
-                    )
                   ],
                 ),
               ),
