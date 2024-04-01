@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       title: "Clothes Shop",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: const Color(0xFF2196F3)),
-      home: StarterScreen(),
+      home: HomeScreen(),
     );
   }
 }

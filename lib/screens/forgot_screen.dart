@@ -86,12 +86,12 @@ class _ForgotPassScreenState extends State<ForgotPassScreen> {
                 onPressed: () => {goToScreen(context, RecoveryScreen())},
                 style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(55),
-                    backgroundColor: const Color(0xFFEF6969),
+                    backgroundColor: Theme.of(context).primaryColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8))),
                 child: const Text(
                   "Send code",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ],

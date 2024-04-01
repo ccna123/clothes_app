@@ -26,6 +26,17 @@ class ProductScreen extends StatelessWidget {
     int quantity = 0;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Product",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: const BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -34,15 +45,6 @@ class ProductScreen extends StatelessWidget {
             children: [
               const SizedBox(
                 height: 40,
-              ),
-              Center(
-                  child: FanCarouselImageSlider(
-                      sliderHeight: 400,
-                      autoPlay: false,
-                      imagesLink: images,
-                      isAssets: true)),
-              const SizedBox(
-                height: 20,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),

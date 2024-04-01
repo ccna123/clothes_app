@@ -3,6 +3,7 @@ class Item {
   String description;
   String image;
   int price;
+  String status;
   int likes;
 
   Item(
@@ -10,5 +11,6 @@ class Item {
       required this.description,
       required this.image,
       required this.price,
+      required this.status,
       required this.likes});
 }
