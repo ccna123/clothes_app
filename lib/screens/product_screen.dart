@@ -7,6 +7,7 @@ import 'package:car_app/widgets/car_spec.dart';
 import 'package:car_app/widgets/slider_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -50,7 +51,9 @@ class ProductScreen extends StatelessWidget {
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "\$${item.price.toString()}",
+                          NumberFormat.simpleCurrency(
+                                  locale: "en_US", decimalDigits: 0)
+                              .format(item.price),
                           style: TextStyle(
                               color: Colors.red,
                               fontSize: 30,
@@ -131,6 +134,7 @@ class ProductScreen extends StatelessWidget {
                     SizedBox(height: 20),
                     SliderButton(
                       title: "Buy now",
+                      price: item.price,
                       destinationScreen: DestinationScreen.CHECKOUT,
                     )
                   ],
@@ -141,122 +145,5 @@ class ProductScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<dynamic> showBottomModal(
-      BuildContext context, List clrs, int quantity) {
-    return showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        context: context,
-        builder: (BuildContext builder) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter setState) {
-            return Container(
-              height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30)),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Color",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        for (var i = 0; i < clrs.length; i++) ...[
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: clrs[i],
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50))),
-                          )
-                        ],
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "Total",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              if (quantity > 0) {
-                                setState(() {
-                                  quantity--;
-                                });
-                              }
-                            },
-                            child: Icon(
-                              Icons.remove,
-                              size: 20,
-                              color: Colors.black,
-                            )),
-                        Text(
-                          quantity.toString(),
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              setState(() {
-                                quantity++;
-                              });
-                            },
-                            child: Icon(
-                              Icons.add,
-                              size: 20,
-                              color: Colors.black,
-                            ))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            "Total payment",
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Text(
-                          "\$123",
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-        });
   }
 }

@@ -8,16 +8,20 @@ import 'package:slide_to_act/slide_to_act.dart';
 
 class SliderButton extends StatelessWidget {
   const SliderButton(
-      {super.key, required this.title, required this.destinationScreen});
+      {super.key,
+      required this.title,
+      required this.destinationScreen,
+      required this.price});
 
   final String title;
   final DestinationScreen destinationScreen;
+  final int price;
 
   @override
   Widget build(BuildContext context) {
     return SlideAction(
       onSubmit: () {
-        NavigatoScreen(context);
+        navigateTo(context, price);
       },
       sliderRotate: false,
       sliderButtonIcon: Text(
@@ -44,13 +48,13 @@ class SliderButton extends StatelessWidget {
     );
   }
 
-  void NavigatoScreen(BuildContext context) {
+  void navigateTo(BuildContext context, int price) {
     switch (destinationScreen) {
       case DestinationScreen.HOME:
         goToScreen(context, HomeScreen());
         break;
       case DestinationScreen.CHECKOUT:
-        goToScreen(context, (ConfirmOrderScreen()));
+        goToScreen(context, (ConfirmOrderScreen(price: price)));
         break;
     }
   }

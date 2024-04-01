@@ -1,7 +1,9 @@
 import 'package:car_app/helper/color_pair.dart';
+import 'package:car_app/model/item_model.dart';
 import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/widgets/product_image.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class AvailableCarCard extends StatelessWidget {
@@ -24,7 +26,7 @@ class AvailableCarCard extends StatelessWidget {
   Widget build(BuildContext context) {
     ColorPair statusColor = getStatusColor(status);
     final items = context.watch<ItemProvider>().items;
-    var item = items.firstWhere((element) => element.id == id, orElse: () {
+    Item item = items.firstWhere((element) => element.id == id, orElse: () {
       throw Exception("Not found");
     });
     return SizedBox(
@@ -55,7 +57,7 @@ class AvailableCarCard extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
           ]),
           Padding(
             padding: const EdgeInsets.only(left: 20),
@@ -67,14 +69,15 @@ class AvailableCarCard extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey),
+                      color: Colors.black),
                 ),
                 Text(
-                  "\$${price.toString()}",
+                  NumberFormat.simpleCurrency(locale: "en_US", decimalDigits: 0)
+                      .format(item.price),
                   style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red),
                 )
               ],
             ),
