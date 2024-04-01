@@ -40,6 +40,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   provider:
   carousel_slider: ^4.2.1
+  slide_to_act: 
+  shimmer: 
 
 dev_dependencies:
   flutter_test:

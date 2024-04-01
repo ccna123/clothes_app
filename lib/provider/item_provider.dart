@@ -1,6 +1,5 @@
 import 'package:car_app/model/item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 final List<Map<String, dynamic>> initialData = [
   {
