@@ -18,7 +18,6 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
   @override
   Widget build(BuildContext context) {
     int subTotal = widget.price;
-    double shippingFee = subTotal * 0.1;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Confirm Order"),
@@ -67,7 +66,9 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                       ),
                     ),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: const Text(
                           "Change",
                           style: TextStyle(
@@ -191,22 +192,6 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Shipping-fee",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      NumberFormat.simpleCurrency(
-                              locale: "en_US", decimalDigits: 0)
-                          .format(shippingFee),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
                 const Divider(
                   height: 20,
                   thickness: 1,
@@ -226,7 +211,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                     Text(
                       NumberFormat.simpleCurrency(
                               locale: "en_US", decimalDigits: 0)
-                          .format(subTotal + shippingFee),
+                          .format(subTotal),
                       style: const TextStyle(
                           color: Colors.red,
                           fontSize: 30,

@@ -32,6 +32,7 @@ class SliderButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 170),
         child: Shimmer.fromColors(
+          period: const Duration(milliseconds: 400),
           baseColor: Colors.blue[100]!,
           highlightColor: Colors.blue[300]!,
           child: Row(

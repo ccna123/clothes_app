@@ -6,7 +6,6 @@ import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/widgets/car_spec.dart';
 import 'package:car_app/widgets/slider_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -50,15 +49,23 @@ class ProductScreen extends StatelessWidget {
                           style: TextStyle(
                               fontSize: 30, fontWeight: FontWeight.bold),
                         ),
-                        Text(
-                          NumberFormat.simpleCurrency(
-                                  locale: "en_US", decimalDigits: 0)
-                              .format(item.price),
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        RichText(
+                            text: TextSpan(children: [
+                          TextSpan(
+                              style: const TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red),
+                              text: NumberFormat.simpleCurrency(
+                                      locale: 'en_US', decimalDigits: 0)
+                                  .format(item.price)),
+                          const TextSpan(
+                              text: "/day",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold))
+                        ]))
                       ],
                     )),
                 Image.asset(item.image),
@@ -103,20 +110,23 @@ class ProductScreen extends StatelessWidget {
                                   ]),
                               SizedBox(height: 10),
                               SizedBox(height: 10),
-                              RatingBar.builder(
-                                itemSize: 30,
-                                initialRating: 3,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 4.0),
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {},
+                              Row(
+                                children: [
+                                  Icon(
+                                    Icons.favorite,
+                                    color: Colors.pink,
+                                    size: 35,
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    item.likes.toString(),
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
                               ),
                             ],
                           ),
@@ -133,7 +143,7 @@ class ProductScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 20),
                     SliderButton(
-                      title: "Buy now",
+                      title: "Rent now",
                       price: item.price,
                       destinationScreen: DestinationScreen.CHECKOUT,
                     )

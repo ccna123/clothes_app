@@ -4,7 +4,6 @@ import 'package:car_app/shared/navigation.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key, required this.price});
@@ -27,13 +26,27 @@ class _PaymentScreenState extends State<PaymentScreen> {
     "Google Pay": "images/google_pay.png",
   };
   bool isPaymentSelected = false;
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var addressController = TextEditingController();
+  var phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() => setState(() {}));
+    emailController.addListener(() => setState(() {}));
+    addressController.addListener(() => setState(() {}));
+    phoneController.addListener(() => setState(() {}));
+  }
+
   @override
   Widget build(BuildContext context) {
     int subTotal = widget.price;
-    double shippingFee = subTotal * 0.1;
+
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Payment method"),
+          title: const Text("Payment"),
           leading: const BackButton(),
           backgroundColor: Colors.transparent,
           foregroundColor: Colors.black,
@@ -41,126 +54,175 @@ class _PaymentScreenState extends State<PaymentScreen> {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  children: [
-                    Column(
-                      children: List.generate(
-                        method.length,
-                        (index) {
-                          return Column(
+          child: SingleChildScrollView(
+            child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          Column(
+                            children: List.generate(
+                              method.length,
+                              (index) {
+                                return Column(
+                                  children: [
+                                    paymentMethod(
+                                        method.keys.elementAt(index),
+                                        index + 1,
+                                        method.values.elementAt(index)),
+                                    const SizedBox(
+                                      height: 10,
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Customer Info",
+                              style: TextStyle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Column(
                             children: [
-                              paymentMethod(method.keys.elementAt(index),
-                                  index + 1, method.values.elementAt(index)),
+                              buildCusInfo(context, "Name", nameController, 0),
                               const SizedBox(
                                 height: 10,
+                              ),
+                              buildCusInfo(
+                                  context, "Email", emailController, 1),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              buildCusInfo(
+                                  context, "Address", addressController, 2),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              buildCusInfo(
+                                  context, "Phone", phoneController, 3),
+                            ],
+                          )
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Sub-Total",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                NumberFormat.simpleCurrency(
+                                        locale: "en_US", decimalDigits: 0)
+                                    .format(subTotal),
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               )
                             ],
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Sub-Total",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              NumberFormat.simpleCurrency(
-                                      locale: "en_US", decimalDigits: 0)
-                                  .format(subTotal),
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Shipping-fee",
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            Text(
-                              NumberFormat.simpleCurrency(
-                                      locale: "en_US", decimalDigits: 0)
-                                  .format(shippingFee),
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        const Divider(
-                          height: 20,
-                          thickness: 1,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              "Total Payment",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            Text(
-                              NumberFormat.simpleCurrency(
-                                      locale: "en_US", decimalDigits: 0)
-                                  .format(subTotal + shippingFee),
-                              style: const TextStyle(
-                                  color: Colors.red,
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        InkWell(
-                          onTap: isPaymentSelected
-                              ? () {
-                                  goToScreen(
-                                      context,
-                                      ConfirmOrderScreen(
-                                        price: subTotal,
-                                        paymentType: type,
-                                      ));
-                                }
-                              : () => showNotify(
-                                  context,
-                                  "animation/error.json",
-                                  "Not choose payment method",
-                                  400),
-                          child: ButtonModal(
-                            title: "Confirm payment",
-                            bgColor: Theme.of(context).primaryColor,
-                            containerWidth:
-                                MediaQuery.of(context).size.width / 0.6,
                           ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          const Divider(
+                            height: 20,
+                            thickness: 1,
+                            color: Colors.black,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                "Total Payment",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
+                              Text(
+                                NumberFormat.simpleCurrency(
+                                        locale: "en_US", decimalDigits: 0)
+                                    .format(subTotal),
+                                style: const TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          InkWell(
+                            onTap: isPaymentSelected
+                                ? () {
+                                    goToScreen(
+                                        context,
+                                        ConfirmOrderScreen(
+                                          price: subTotal,
+                                          paymentType: type,
+                                        ));
+                                  }
+                                : () => showNotify(
+                                    context,
+                                    "animation/error.json",
+                                    "Not choose payment method",
+                                    400),
+                            child: ButtonModal(
+                              title: "Confirm payment",
+                              bgColor: Theme.of(context).primaryColor,
+                              containerWidth:
+                                  MediaQuery.of(context).size.width / 0.6,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ));
+  }
+
+  TextField buildCusInfo(BuildContext context, String label,
+      TextEditingController controller, int type) {
+    return TextField(
+      controller: controller,
+      keyboardType: getTextInputType(type),
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.person),
+          suffixIcon: controller.text.isEmpty
+              ? Container(
+                  width: 0,
+                )
+              : IconButton(
+                  onPressed: () {
+                    controller.clear();
+                  },
+                  icon: const Icon(Icons.close)),
+          focusColor: Theme.of(context).primaryColor,
+          labelText: label,
+          border: const OutlineInputBorder()),
+    );
   }
 
   InkWell paymentMethod(String method, int value, String image) {
@@ -214,5 +276,20 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
       ),
     );
+  }
+
+  TextInputType getTextInputType(int type) {
+    switch (type) {
+      case 0:
+        return TextInputType.name;
+      case 1:
+        return TextInputType.emailAddress;
+      case 2:
+        return TextInputType.streetAddress;
+      case 3:
+        return TextInputType.phone;
+      default:
+        return TextInputType.none;
+    }
   }
 }
