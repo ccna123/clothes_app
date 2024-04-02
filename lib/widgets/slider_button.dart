@@ -11,17 +11,17 @@ class SliderButton extends StatelessWidget {
       {super.key,
       required this.title,
       required this.destinationScreen,
-      required this.price});
+      this.price});
 
   final String title;
   final DestinationScreen destinationScreen;
-  final int price;
+  final int? price;
 
   @override
   Widget build(BuildContext context) {
     return SlideAction(
       onSubmit: () {
-        navigateTo(context, price);
+        navigateTo(context, price!);
       },
       sliderRotate: false,
       sliderButtonIcon: Text(

@@ -1,6 +1,7 @@
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 class ConfirmOrderScreen extends StatelessWidget {
   const ConfirmOrderScreen({super.key, required this.price});
@@ -23,7 +24,7 @@ class ConfirmOrderScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Shipping Address",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -75,7 +76,7 @@ class ConfirmOrderScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Payment Method",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -181,17 +182,19 @@ class ConfirmOrderScreen extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Shipping-fee",
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "\$44",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      NumberFormat.simpleCurrency(
+                              locale: "en_US", decimalDigits: 0)
+                          .format(price * 0.1),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -225,13 +228,48 @@ class ConfirmOrderScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        backgroundColor: Color(0xFF2196F3),
-                        content: Text(
-                          "Order successfully",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        )));
+                    showGeneralDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        barrierLabel: "",
+                        transitionDuration: const Duration(milliseconds: 400),
+                        pageBuilder: (context, anim1, anim2) {
+                          return Container();
+                        },
+                        transitionBuilder: (context, a1, a2, child) {
+                          return ScaleTransition(
+                            scale:
+                                Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+                            child: FadeTransition(
+                              opacity: Tween<double>(begin: 0.5, end: 1.0)
+                                  .animate(a1),
+                              child: AlertDialog(
+                                title: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Lottie.asset(
+                                      "animation/done.json",
+                                    ),
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text(
+                                          "Close",
+                                          style: TextStyle(
+                                              color: Colors.blue,
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold),
+                                        ))
+                                  ],
+                                ),
+                                shape: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                    borderSide: BorderSide.none),
+                              ),
+                            ),
+                          );
+                        });
                   },
                   child: ButtonModal(
                     title: "Confirm Order",

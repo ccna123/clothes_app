@@ -119,17 +119,17 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        InkWell(
-                          onTap: () {
-                            goToScreen(context, ConfirmOrderScreen());
-                          },
-                          child: ButtonModal(
-                            title: "Confirm payment",
-                            bgColor: Theme.of(context).primaryColor,
-                            containerWidth:
-                                MediaQuery.of(context).size.width / 0.6,
-                          ),
-                        )
+                        // InkWell(
+                        //   onTap: () {
+                        //     goToScreen(context, ConfirmOrderScreen());
+                        //   },
+                        //   child: ButtonModal(
+                        //     title: "Confirm payment",
+                        //     bgColor: Theme.of(context).primaryColor,
+                        //     containerWidth:
+                        //         MediaQuery.of(context).size.width / 0.6,
+                        //   ),
+                        // )
                       ],
                     )
                   ],
