@@ -3,13 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
-class ConfirmOrderScreen extends StatelessWidget {
+class ConfirmOrderScreen extends StatefulWidget {
   const ConfirmOrderScreen({super.key, required this.price});
 
   final int price;
 
   @override
+  State<ConfirmOrderScreen> createState() => _ConfirmOrderScreenState();
+}
+
+class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
+  @override
   Widget build(BuildContext context) {
+    int subTotal = widget.price;
+    double shippingFee = subTotal * 0.1;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Confirm Order"),
@@ -24,7 +31,7 @@ class ConfirmOrderScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Shipping Address",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -173,7 +180,7 @@ class ConfirmOrderScreen extends StatelessWidget {
                     Text(
                       NumberFormat.simpleCurrency(
                               locale: "en_US", decimalDigits: 0)
-                          .format(price),
+                          .format(subTotal),
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     )
@@ -192,7 +199,7 @@ class ConfirmOrderScreen extends StatelessWidget {
                     Text(
                       NumberFormat.simpleCurrency(
                               locale: "en_US", decimalDigits: 0)
-                          .format(price * 0.1),
+                          .format(shippingFee),
                       style: const TextStyle(
                           fontSize: 20, fontWeight: FontWeight.bold),
                     )
@@ -206,17 +213,19 @@ class ConfirmOrderScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Total Payment",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                     Text(
-                      "\$123",
-                      style: TextStyle(
+                      NumberFormat.simpleCurrency(
+                              locale: "en_US", decimalDigits: 0)
+                          .format(subTotal + shippingFee),
+                      style: const TextStyle(
                           color: Colors.red,
                           fontSize: 30,
                           fontWeight: FontWeight.bold),
