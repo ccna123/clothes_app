@@ -1,8 +1,15 @@
+import 'package:car_app/helper/show_notify.dart';
+import 'package:car_app/screens/confirm_order_screen.dart';
+import 'package:car_app/shared/navigation.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 class PaymentScreen extends StatefulWidget {
-  const PaymentScreen({super.key});
+  const PaymentScreen({super.key, required this.price});
+
+  final int price;
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -11,7 +18,7 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   int selectedPayment = 0;
 
-  int type = 1;
+  int type = 0;
 
   final Map<String, String> method = {
     "Amazon Pay": "images/amazon_pay.png",
@@ -19,9 +26,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
     "Visa": "images/visa.png",
     "Google Pay": "images/google_pay.png",
   };
-
+  bool isPaymentSelected = false;
   @override
   Widget build(BuildContext context) {
+    int subTotal = widget.price;
+    double shippingFee = subTotal * 0.1;
     return Scaffold(
         appBar: AppBar(
           title: const Text("Payment method"),
@@ -59,16 +68,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     ),
                     Column(
                       children: [
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Sub-Total",
                               style: TextStyle(fontSize: 16),
                             ),
                             Text(
-                              "\$1123",
-                              style: TextStyle(
+                              NumberFormat.simpleCurrency(
+                                      locale: "en_US", decimalDigits: 0)
+                                  .format(subTotal),
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )
                           ],
@@ -76,16 +87,18 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Shipping-fee",
                               style: TextStyle(fontSize: 16),
                             ),
                             Text(
-                              "\$44",
-                              style: TextStyle(
+                              NumberFormat.simpleCurrency(
+                                      locale: "en_US", decimalDigits: 0)
+                                  .format(shippingFee),
+                              style: const TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold),
                             )
                           ],
@@ -98,17 +111,19 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Total Payment",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 20),
                             ),
                             Text(
-                              "\$123",
-                              style: TextStyle(
+                              NumberFormat.simpleCurrency(
+                                      locale: "en_US", decimalDigits: 0)
+                                  .format(subTotal + shippingFee),
+                              style: const TextStyle(
                                   color: Colors.red,
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold),
@@ -118,17 +133,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     goToScreen(context, ConfirmOrderScreen());
-                        //   },
-                        //   child: ButtonModal(
-                        //     title: "Confirm payment",
-                        //     bgColor: Theme.of(context).primaryColor,
-                        //     containerWidth:
-                        //         MediaQuery.of(context).size.width / 0.6,
-                        //   ),
-                        // )
+                        InkWell(
+                          onTap: isPaymentSelected
+                              ? () {
+                                  goToScreen(
+                                      context,
+                                      ConfirmOrderScreen(
+                                        price: subTotal,
+                                        paymentType: type,
+                                      ));
+                                }
+                              : () => showNotify(
+                                  context,
+                                  "animation/error.json",
+                                  "Not choose payment method",
+                                  400),
+                          child: ButtonModal(
+                            title: "Confirm payment",
+                            bgColor: Theme.of(context).primaryColor,
+                            containerWidth:
+                                MediaQuery.of(context).size.width / 0.6,
+                          ),
+                        )
                       ],
                     )
                   ],
@@ -143,6 +169,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         setState(() {
           selectedPayment = value;
           type = value;
+          isPaymentSelected = true;
         });
       },
       child: Container(

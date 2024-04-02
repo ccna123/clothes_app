@@ -1,12 +1,15 @@
+import 'package:car_app/helper/show_notify.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class ConfirmOrderScreen extends StatefulWidget {
-  const ConfirmOrderScreen({super.key, required this.price});
+  const ConfirmOrderScreen(
+      {super.key, required this.price, required this.paymentType});
 
   final int price;
+  final int paymentType;
 
   @override
   State<ConfirmOrderScreen> createState() => _ConfirmOrderScreenState();
@@ -53,14 +56,14 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                         children: [
                           Text(
                             "Mit",
-                            style: TextStyle(color: Colors.grey, fontSize: 20),
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                           ),
                           Text("8702 斎藤Dale, Apt. 487, 070-4711",
                               style:
-                                  TextStyle(color: Colors.grey, fontSize: 15)),
+                                  TextStyle(color: Colors.black, fontSize: 15)),
                           Text("港大和町, 奈良県, Japan",
                               style:
-                                  TextStyle(color: Colors.grey, fontSize: 15))
+                                  TextStyle(color: Colors.black, fontSize: 15))
                         ],
                       ),
                     ),
@@ -115,9 +118,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                       ],
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),
-                  child: Image.asset(
-                    "images/visa.png",
-                  ),
+                  child: paymentTypeChangeImage(widget.paymentType),
                 ),
                 const SizedBox(
                   width: 16,
@@ -237,48 +238,8 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                 ),
                 InkWell(
                   onTap: () {
-                    showGeneralDialog(
-                        context: context,
-                        barrierDismissible: true,
-                        barrierLabel: "",
-                        transitionDuration: const Duration(milliseconds: 400),
-                        pageBuilder: (context, anim1, anim2) {
-                          return Container();
-                        },
-                        transitionBuilder: (context, a1, a2, child) {
-                          return ScaleTransition(
-                            scale:
-                                Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-                            child: FadeTransition(
-                              opacity: Tween<double>(begin: 0.5, end: 1.0)
-                                  .animate(a1),
-                              child: AlertDialog(
-                                title: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Lottie.asset(
-                                      "animation/done.json",
-                                    ),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text(
-                                          "Close",
-                                          style: TextStyle(
-                                              color: Colors.blue,
-                                              fontSize: 30,
-                                              fontWeight: FontWeight.bold),
-                                        ))
-                                  ],
-                                ),
-                                shape: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(16),
-                                    borderSide: BorderSide.none),
-                              ),
-                            ),
-                          );
-                        });
+                    showNotify(context, "animation/done.json",
+                        "Order Successfully", 200);
                   },
                   child: ButtonModal(
                     title: "Confirm Order",
@@ -292,5 +253,28 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
         ),
       ),
     );
+  }
+
+  Image? paymentTypeChangeImage(int type) {
+    switch (type) {
+      case 1:
+        return Image.asset(
+          "images/amazon_pay.png",
+        );
+      case 2:
+        return Image.asset(
+          "images/paypal.png",
+        );
+      case 3:
+        return Image.asset(
+          "images/visa.png",
+        );
+      case 4:
+        return Image.asset(
+          "images/google_pay.png",
+        );
+      default:
+        return null;
+    }
   }
 }

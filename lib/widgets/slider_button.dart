@@ -1,6 +1,6 @@
 import 'package:car_app/helper/destination_enum.dart';
-import 'package:car_app/screens/confirm_order_screen.dart';
 import 'package:car_app/screens/home_screen.dart';
+import 'package:car_app/screens/payment_screen.dart';
 import 'package:car_app/shared/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -54,8 +54,15 @@ class SliderButton extends StatelessWidget {
       case DestinationScreen.HOME:
         goToScreen(context, HomeScreen());
         break;
+      // case DestinationScreen.CHECKOUT:
+      //   goToScreen(context, (ConfirmOrderScreen(price: price)));
+      //   break;
       case DestinationScreen.CHECKOUT:
-        goToScreen(context, (ConfirmOrderScreen(price: price)));
+        goToScreen(
+            context,
+            (PaymentScreen(
+              price: price,
+            )));
         break;
     }
   }
