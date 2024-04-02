@@ -4,11 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ConfirmOrderScreen extends StatefulWidget {
-  const ConfirmOrderScreen(
-      {super.key, required this.price, required this.paymentType});
+  const ConfirmOrderScreen({
+    super.key,
+    required this.price,
+    required this.paymentType,
+    required this.name,
+    required this.email,
+    required this.address,
+    required this.phone,
+  });
 
   final int price;
   final int paymentType;
+  final String name, address, email, phone;
 
   @override
   State<ConfirmOrderScreen> createState() => _ConfirmOrderScreenState();
@@ -33,7 +41,7 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Shipping Address",
+              "Customer Info",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
@@ -48,20 +56,24 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Mit",
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                            widget.name,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 20),
                           ),
-                          Text("8702 斎藤Dale, Apt. 487, 070-4711",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 15)),
-                          Text("港大和町, 奈良県, Japan",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 15))
+                          Text(widget.email,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15)),
+                          Text(widget.address,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15)),
+                          Text(widget.phone,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15))
                         ],
                       ),
                     ),

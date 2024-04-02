@@ -179,6 +179,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                         ConfirmOrderScreen(
                                           price: subTotal,
                                           paymentType: type,
+                                          name: nameController.text,
+                                          email: emailController.text,
+                                          phone: phoneController.text,
+                                          address: addressController.text,
                                         ));
                                   }
                                 : () => showNotify(
@@ -206,9 +210,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
       TextEditingController controller, int type) {
     return TextField(
       controller: controller,
+      cursorColor: Theme.of(context).primaryColor,
       keyboardType: getTextInputType(type),
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
+          floatingLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).primaryColor)),
           prefixIcon: const Icon(Icons.person),
           suffixIcon: controller.text.isEmpty
               ? Container(
@@ -219,7 +227,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     controller.clear();
                   },
                   icon: const Icon(Icons.close)),
-          focusColor: Theme.of(context).primaryColor,
           labelText: label,
           border: const OutlineInputBorder()),
     );
