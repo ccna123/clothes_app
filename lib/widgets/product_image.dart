@@ -1,4 +1,3 @@
-import 'package:car_app/model/item_model.dart';
 import 'package:car_app/provider/item_provider.dart';
 import 'package:car_app/screens/product_screen.dart';
 import 'package:car_app/shared/navigation.dart';

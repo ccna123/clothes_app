@@ -23,7 +23,7 @@ class ConfirmOrderScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Shipping Address",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -75,7 +75,7 @@ class ConfirmOrderScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Payment Method",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
@@ -225,7 +225,7 @@ class ConfirmOrderScreen extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         backgroundColor: Color(0xFF2196F3),
                         content: Text(
                           "Order successfully",

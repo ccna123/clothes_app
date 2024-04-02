@@ -16,6 +16,6 @@ class PageIndicator extends StatelessWidget {
                 ? Theme.of(context).primaryColor
                 : Colors.grey,
             borderRadius: BorderRadius.circular(20)),
-        duration: Duration(milliseconds: 500));
+        duration: const Duration(milliseconds: 500));
   }
 }
