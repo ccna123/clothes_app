@@ -1,9 +1,5 @@
-import 'package:car_app/screens/confirm_order_screen.dart';
-import 'package:car_app/screens/home_screen.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
-
-import '../shared/navigation.dart';
 
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key});
@@ -14,13 +10,16 @@ class PaymentScreen extends StatefulWidget {
 
 class _PaymentScreenState extends State<PaymentScreen> {
   int selectedPayment = 0;
+
   int type = 1;
-  Map<String, String> method = {
+
+  final Map<String, String> method = {
     "Amazon Pay": "images/amazon_pay.png",
     "Paypal": "images/paypal.png",
     "Visa": "images/visa.png",
     "Google Pay": "images/google_pay.png",
   };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

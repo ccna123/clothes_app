@@ -22,6 +22,7 @@ class SliderButton extends StatelessWidget {
     return SlideAction(
       onSubmit: () {
         navigateTo(context, price!);
+        return null;
       },
       sliderRotate: false,
       sliderButtonIcon: Text(
