@@ -1,8 +1,11 @@
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ConfirmOrderScreen extends StatelessWidget {
-  const ConfirmOrderScreen({super.key});
+  const ConfirmOrderScreen({super.key, required this.price});
+
+  final int price;
 
   @override
   Widget build(BuildContext context) {
@@ -159,17 +162,19 @@ class ConfirmOrderScreen extends StatelessWidget {
             ),
             Column(
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Sub-Total",
                       style: TextStyle(fontSize: 16),
                     ),
                     Text(
-                      "\$1123",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      NumberFormat.simpleCurrency(
+                              locale: "en_US", decimalDigits: 0)
+                          .format(price),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),

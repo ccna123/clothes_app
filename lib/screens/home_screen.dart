@@ -1,9 +1,10 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
-import 'package:car_app/model/item_model.dart';
 import 'package:car_app/provider/item_provider.dart';
-import 'package:car_app/screens/product_screen.dart';
-import 'package:car_app/widgets/item_card.dart';
+import 'package:car_app/widgets/available_car.dart';
+import 'package:car_app/widgets/indicator.dart';
+import 'package:car_app/widgets/product_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +15,21 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var items = context.watch<ItemProvider>().items;
+    final items = context.watch<ItemProvider>().items;
+
+    int currentValue = 0;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Home",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        leading: const BackButton(),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: SafeArea(
             child: Padding(
@@ -44,7 +58,7 @@ class HomeScreen extends StatelessWidget {
                           labelText: "Find product",
                           prefixIcon: Icon(
                             Icons.search,
-                            color: Color(0xFFEF6969),
+                            color: Theme.of(context).primaryColor,
                           )),
                     ),
                   ),
@@ -104,18 +118,49 @@ class HomeScreen extends StatelessWidget {
                 height: 15,
               ),
               SizedBox(
-                height: 250,
+                height: 190,
                 // color: Color.fromARGB(255, 232, 142, 142),
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      final item = items[index];
-                      return ItemCard(
-                        item: item,
-                      );
-                    }),
+                child: StatefulBuilder(
+                  builder: (BuildContext context, setState) {
+                    return Column(
+                      children: [
+                        CarouselSlider(
+                            options: CarouselOptions(
+                              viewportFraction: 1,
+                              aspectRatio: 2.6,
+                              enlargeCenterPage: true,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  currentValue = index;
+                                });
+                              },
+                            ),
+                            items: List<Widget>.generate(
+                                items.length,
+                                (index) => ProductImage(
+                                      image: items[index].image,
+                                      id: items[index].id,
+                                    )).toList()),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: List<Widget>.generate(
+                                items.length,
+                                (index) => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: PageIndicator(
+                                        index: index,
+                                        currentValue: currentValue,
+                                      ),
+                                    )),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
               SizedBox(
                 height: 20,
@@ -123,27 +168,22 @@ class HomeScreen extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Latest Products",
+                  "Available Cars",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 200,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 0.6),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    final item = items[index];
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ItemCard(item: item),
-                    );
-                  },
-                ),
+                height: 500,
+                child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return AvailableCarCard(
+                          id: items[index].id,
+                          name: items[index].name,
+                          imageName: items[index].image,
+                          price: items[index].price,
+                          status: items[index].status);
+                    }),
               )
             ],
           ),

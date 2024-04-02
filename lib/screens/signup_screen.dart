@@ -57,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8))),
                     child: const Text(
                       "Sign up",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                   const SizedBox(

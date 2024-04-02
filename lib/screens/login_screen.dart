@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8))),
                     child: const Text(
                       "Login",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: Colors.white),
                     ),
                   ),
                   const SizedBox(
@@ -80,12 +80,11 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             goToScreen(context, const SignUpScreen());
                           },
-                          child: Text(
-                            "Sign in",
-                            style: TextStyle(
+                          child: Text("Sign in",
+                              style: TextStyle(
                                 fontSize: 16,
-                                color: Theme.of(context).primaryColor),
-                          ))
+                                color: Theme.of(context).primaryColor,
+                              )))
                     ],
                   )
                 ],

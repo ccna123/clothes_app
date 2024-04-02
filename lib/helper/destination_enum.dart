@@ -1,0 +1,1 @@
+enum DestinationScreen { HOME, CHECKOUT }
