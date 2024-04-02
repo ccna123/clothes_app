@@ -6,12 +6,13 @@ class ButtonModal extends StatelessWidget {
   final double? containerWidth;
   final Color textColor;
 
-  const ButtonModal(
-      {super.key,
-      this.bgColor,
-      required this.title,
-      this.containerWidth,
-      this.textColor = Colors.white});
+  const ButtonModal({
+    super.key,
+    this.bgColor,
+    required this.title,
+    this.containerWidth,
+    this.textColor = Colors.white,
+  });
 
   @override
   Widget build(BuildContext context) {

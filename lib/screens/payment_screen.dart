@@ -5,6 +5,8 @@ import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+final _formKey = GlobalKey<FormState>();
+
 class PaymentScreen extends StatefulWidget {
   const PaymentScreen({super.key, required this.price});
 
@@ -95,26 +97,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           const SizedBox(
                             height: 10,
                           ),
-                          Column(
-                            children: [
-                              buildCusInfo(context, "Name", nameController, 0),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildCusInfo(
-                                  context, "Email", emailController, 1),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildCusInfo(
-                                  context, "Address", addressController, 2),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildCusInfo(
-                                  context, "Phone", phoneController, 3),
-                            ],
-                          )
+                          buildCusInfo()
                         ],
                       ),
                       const SizedBox(
@@ -206,30 +189,135 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ));
   }
 
-  TextField buildCusInfo(BuildContext context, String label,
-      TextEditingController controller, int type) {
-    return TextField(
-      controller: controller,
-      cursorColor: Theme.of(context).primaryColor,
-      keyboardType: getTextInputType(type),
-      textInputAction: TextInputAction.done,
-      decoration: InputDecoration(
-          floatingLabelStyle: TextStyle(color: Theme.of(context).primaryColor),
-          focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Theme.of(context).primaryColor)),
-          prefixIcon: const Icon(Icons.person),
-          suffixIcon: controller.text.isEmpty
-              ? Container(
-                  width: 0,
-                )
-              : IconButton(
-                  onPressed: () {
-                    controller.clear();
-                  },
-                  icon: const Icon(Icons.close)),
-          labelText: label,
-          border: const OutlineInputBorder()),
-    );
+  Form buildCusInfo() {
+    return Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              controller: nameController,
+              cursorColor: Theme.of(context).primaryColor,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor)),
+                  prefixIcon: const Icon(Icons.person),
+                  suffixIcon: nameController.text.isEmpty
+                      ? Container(
+                          width: 0,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            nameController.clear();
+                          },
+                          icon: const Icon(Icons.close)),
+                  labelText: "Name",
+                  border: const OutlineInputBorder()),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (name) => name == "" ? "Please enter name" : "",
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: emailController,
+              cursorColor: Theme.of(context).primaryColor,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor)),
+                  prefixIcon: const Icon(Icons.email),
+                  suffixIcon: nameController.text.isEmpty
+                      ? Container(
+                          width: 0,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            nameController.clear();
+                          },
+                          icon: const Icon(Icons.close)),
+                  labelText: "Email",
+                  border: const OutlineInputBorder()),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: validateEmail,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: addressController,
+              cursorColor: Theme.of(context).primaryColor,
+              keyboardType: TextInputType.streetAddress,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor)),
+                  prefixIcon: const Icon(Icons.location_on),
+                  suffixIcon: nameController.text.isEmpty
+                      ? Container(
+                          width: 0,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            nameController.clear();
+                          },
+                          icon: const Icon(Icons.close)),
+                  labelText: "Address",
+                  border: const OutlineInputBorder()),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: validateEmail,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: phoneController,
+              cursorColor: Theme.of(context).primaryColor,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.done,
+              decoration: InputDecoration(
+                  floatingLabelStyle:
+                      TextStyle(color: Theme.of(context).primaryColor),
+                  focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Theme.of(context).primaryColor)),
+                  prefixIcon: const Icon(Icons.phone),
+                  suffixIcon: nameController.text.isEmpty
+                      ? Container(
+                          width: 0,
+                        )
+                      : IconButton(
+                          onPressed: () {
+                            nameController.clear();
+                          },
+                          icon: const Icon(Icons.close)),
+                  labelText: "Phone",
+                  border: const OutlineInputBorder()),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: validateEmail,
+            ),
+          ],
+        ));
+  }
+
+  String? validateEmail(String? email) {
+    RegExp emailRegex = RegExp(r'^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$');
+    final isValidEmail = emailRegex.hasMatch(email ?? '');
+    if (!isValidEmail) {
+      return "Please enter valid email";
+    } else {
+      return null;
+    }
   }
 
   InkWell paymentMethod(String method, int value, String image) {
@@ -283,20 +371,5 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
       ),
     );
-  }
-
-  TextInputType getTextInputType(int type) {
-    switch (type) {
-      case 0:
-        return TextInputType.name;
-      case 1:
-        return TextInputType.emailAddress;
-      case 2:
-        return TextInputType.streetAddress;
-      case 3:
-        return TextInputType.phone;
-      default:
-        return TextInputType.none;
-    }
   }
 }
