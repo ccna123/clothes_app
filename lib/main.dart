@@ -1,5 +1,5 @@
 import 'package:car_app/provider/item_provider.dart';
-import 'package:car_app/screens/home_screen.dart';
+import 'package:car_app/screens/starter_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: "Clothes Shop",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: const Color(0xFF2196F3)),
-      home: HomeScreen(),
+      home: StarterScreen(),
     );
   }
 }

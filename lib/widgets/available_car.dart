@@ -71,13 +71,25 @@ class AvailableCarCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                Text(
-                  NumberFormat.simpleCurrency(locale: "en_US", decimalDigits: 0)
-                      .format(item.price),
-                  style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: RichText(
+                      text: TextSpan(children: [
+                    TextSpan(
+                        style: const TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red),
+                        text: NumberFormat.simpleCurrency(
+                                locale: 'en_US', decimalDigits: 0)
+                            .format(item.price)),
+                    const TextSpan(
+                        text: "/day",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold))
+                  ])),
                 )
               ],
             ),

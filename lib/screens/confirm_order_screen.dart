@@ -2,7 +2,6 @@ import 'package:car_app/helper/show_notify.dart';
 import 'package:car_app/widgets/button_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lottie/lottie.dart';
 
 class ConfirmOrderScreen extends StatefulWidget {
   const ConfirmOrderScreen(
@@ -91,7 +90,9 @@ class _ConfirmOrderScreenState extends State<ConfirmOrderScreen> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: const Text(
                       "Change",
                       style: TextStyle(

@@ -21,8 +21,7 @@ class SliderButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideAction(
       onSubmit: () {
-        navigateTo(context, price!);
-        return null;
+        navigateTo(context, price);
       },
       sliderRotate: false,
       sliderButtonIcon: Text(
@@ -49,19 +48,16 @@ class SliderButton extends StatelessWidget {
     );
   }
 
-  void navigateTo(BuildContext context, int price) {
+  void navigateTo(BuildContext context, int? price) {
     switch (destinationScreen) {
       case DestinationScreen.HOME:
         goToScreen(context, HomeScreen());
         break;
-      // case DestinationScreen.CHECKOUT:
-      //   goToScreen(context, (ConfirmOrderScreen(price: price)));
-      //   break;
       case DestinationScreen.CHECKOUT:
         goToScreen(
             context,
             (PaymentScreen(
-              price: price,
+              price: price!,
             )));
         break;
     }

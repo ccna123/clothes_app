@@ -5,8 +5,8 @@ final List<Map<String, dynamic>> initialData = [
   {
     "id": 1,
     "image": "images/car1.png",
-    "name": "Car 1",
-    "price": 24433,
+    "name": "Scuderia Cameron Glickenhaus SCG",
+    "price": 1235,
     "likes": 5255,
     "status": "Available",
     "description": "this is car 1",
@@ -15,8 +15,8 @@ final List<Map<String, dynamic>> initialData = [
   {
     "id": 2,
     "image": "images/car2.png",
-    "name": "Car 2",
-    "price": 29323,
+    "name": "Lamborghini Aventador",
+    "price": 3453,
     "likes": 1234,
     "status": "Available",
     "description": "this is car 2",
@@ -25,8 +25,8 @@ final List<Map<String, dynamic>> initialData = [
   {
     "id": 3,
     "image": "images/car3.png",
-    "name": "Car 3",
-    "price": 90033,
+    "name": "Bugatti Vision Gran Turismo",
+    "price": 4454,
     "likes": 2211,
     "status": "Comming",
     "description": "this is car 3",
@@ -35,8 +35,8 @@ final List<Map<String, dynamic>> initialData = [
   {
     "id": 4,
     "image": "images/car4.png",
-    "name": "Car 4",
-    "price": 95037,
+    "name": "Ferrari Enzo",
+    "price": 1000,
     "likes": 5465,
     "status": "Sold out",
     "description": "this is car 4",
